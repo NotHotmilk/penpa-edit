@@ -238,7 +238,7 @@ const UserSettings = {
         return this._color_theme;
     },
 
-    _displaysize: 48,
+    _displaysize: 24,
     set displaysize(newValue) {
         var valueInt = newValue ? parseInt(newValue, 10) : 24;
 
