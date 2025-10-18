@@ -2246,6 +2246,16 @@ class Puzzle_square extends Puzzle {
             case "sudokumore":
                 this.draw_sudokumore(ctx, num, x, y, ccolor);
                 break;
+            case "tetrominoes":
+            case "tetrominoes_B":
+                this.draw_tetromino(ctx, num, x, y, ccolor, "B");
+                break;
+            case "tetrominoes_G":
+                this.draw_tetromino(ctx, num, x, y, ccolor, "G");
+                break;
+            case "tetrominoes_G+":
+                this.draw_tetromino(ctx, num, x, y, ccolor, "G+");
+                break;
             case "polyomino":
                 this.draw_polyomino(ctx, num, x, y, ccolor);
                 break;
@@ -2269,9 +2279,6 @@ class Puzzle_square extends Puzzle {
                 break;
             case "neighbors":
                 this.draw_neighbors(ctx, num, x, y, ccolor);
-                break;
-            case "tetrominoes":
-                this.draw_tetromino(ctx, num, x, y, ccolor);
                 break;
         }
     }
@@ -4049,9 +4056,9 @@ class Puzzle_square extends Puzzle {
         }
     }
 
-    draw_tetromino(ctx, num, x, y, ccolor) {
+    draw_tetromino(ctx, num, x, y, ccolor, style) {
         ctx.setLineDash([]);
-        ctx.fillStyle = ccolor || Color.BLACK;
+        ctx.fillStyle = ccolor || (style === "B" ? Color.BLACK : Color.GREY_LIGHT);
         ctx.strokeStyle = Color.BLACK;
         ctx.lineWidth = 1.2;
         ctx.lineCap = "square";
@@ -4104,6 +4111,11 @@ class Puzzle_square extends Puzzle {
                     [0, 1, 1]
                 ];
                 break;
+            case 8: // .
+                shape = [
+                    [1]
+                ];
+                break;
             case 9: // I (horizontal)
                 shape = [
                     [1, 1, 1, 1]
@@ -4114,15 +4126,16 @@ class Puzzle_square extends Puzzle {
         }
 
         // セルサイズ（グリッド1セルあたり）
-        var cell = 0.22 * pu.size;
+        var cell = 0.2 * pu.size;
         // バウンディングボックスサイズ
         var rows = shape.length;
         var cols = shape[0].length;
         // 中央寄せ開始位置
         var startX = x - (cols * cell) / 2;
         var startY = y - (rows * cell) / 2;
-        var pad = 0.018 * pu.size; // 内側パディング（不要なら0）
-
+        
+        var pad = style === "B" ? 0.0175 * pu.size : 0;
+        
         // 1) 内側の塗りつぶしのみ描画（枠線無し）
         for (var i = 0; i < rows; i++) {
             for (var j = 0; j < cols; j++) {
@@ -4136,75 +4149,82 @@ class Puzzle_square extends Puzzle {
             }
         }
 
-        // // 2) 外周の実線を描画（隣接が無い辺のみ）
-        // ctx.setLineDash([]);
-        // ctx.strokeStyle = Color.BLACK;
-        // for (var i = 0; i < rows; i++) {
-        //     for (var j = 0; j < cols; j++) {
-        //         if (!shape[i][j]) continue;
-        //         var cx = startX + j * cell;
-        //         var cy = startY + i * cell;
-        //         // top
-        //         if (i === 0 || !shape[i - 1][j]) {
-        //             ctx.beginPath();
-        //             ctx.moveTo(cx, cy);
-        //             ctx.lineTo(cx + cell, cy);
-        //             ctx.stroke();
-        //         }
-        //         // bottom
-        //         if (i === rows - 1 || !shape[i + 1][j]) {
-        //             ctx.beginPath();
-        //             ctx.moveTo(cx, cy + cell);
-        //             ctx.lineTo(cx + cell, cy + cell);
-        //             ctx.stroke();
-        //         }
-        //         // left
-        //         if (j === 0 || !shape[i][j - 1]) {
-        //             ctx.beginPath();
-        //             ctx.moveTo(cx, cy);
-        //             ctx.lineTo(cx, cy + cell);
-        //             ctx.stroke();
-        //         }
-        //         // right
-        //         if (j === cols - 1 || !shape[i][j + 1]) {
-        //             ctx.beginPath();
-        //             ctx.moveTo(cx + cell, cy);
-        //             ctx.lineTo(cx + cell, cy + cell);
-        //             ctx.stroke();
-        //         }
-        //     }
-        // }
-        //
-        // // 3) 内側の点線を描画（隣接している共有辺のみ、一回だけ描く）
-        // var dashLen = Math.max(1, 0.02 * pu.size);
-        // ctx.lineWidth = 1.2;
-        // ctx.strokeStyle = Color.BLACK;
-        // // 右方向の共有辺（各セルと右隣）を一度だけ描画
-        // for (var i = 0; i < rows; i++) {
-        //     for (var j = 0; j < cols; j++) {
-        //         if (!shape[i][j]) continue;
-        //         var cx = startX + j * cell;
-        //         var cy = startY + i * cell;
-        //         // right neighbor
-        //         if (j + 1 < cols && shape[i][j + 1]) {
-        //             ctx.beginPath();
-        //             ctx.moveTo(cx + cell, cy);
-        //             ctx.lineTo(cx + cell, cy + cell);
-        //             ctx.stroke();
-        //         }
-        //         // down neighbor
-        //         if (i + 1 < rows && shape[i + 1][j]) {
-        //             ctx.beginPath();
-        //             ctx.moveTo(cx, cy + cell);
-        //             ctx.lineTo(cx + cell, cy + cell);
-        //             ctx.stroke();
-        //         }
-        //     }
-        // }
-        //
-        // // restore solid line style
-        // ctx.setLineDash([]);
-        // ctx.lineWidth = 1.2;
+        if (style !== "B") {
+            // 2) 外周の実線を描画（隣接が無い辺のみ）
+            ctx.setLineDash([]);
+            ctx.strokeStyle = Color.BLACK;
+            for (var i = 0; i < rows; i++) {
+                for (var j = 0; j < cols; j++) {
+                    if (!shape[i][j]) continue;
+                    var cx = startX + j * cell;
+                    var cy = startY + i * cell;
+                    // top
+                    if (i === 0 || !shape[i - 1][j]) {
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy);
+                        ctx.lineTo(cx + cell, cy);
+                        ctx.stroke();
+                    }
+                    // bottom
+                    if (i === rows - 1 || !shape[i + 1][j]) {
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy + cell);
+                        ctx.lineTo(cx + cell, cy + cell);
+                        ctx.stroke();
+                    }
+                    // left
+                    if (j === 0 || !shape[i][j - 1]) {
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy);
+                        ctx.lineTo(cx, cy + cell);
+                        ctx.stroke();
+                    }
+                    // right
+                    if (j === cols - 1 || !shape[i][j + 1]) {
+                        ctx.beginPath();
+                        ctx.moveTo(cx + cell, cy);
+                        ctx.lineTo(cx + cell, cy + cell);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // 3) 内側の点線を描画（隣接している共有辺のみ、一回だけ描く）
+            var dashLen = Math.max(1, 0.02 * pu.size);
+            if (style === "G") {
+                ctx.lineWidth = 1.2;
+            }
+            else {
+                ctx.lineWidth = 0.6;
+            }
+            ctx.strokeStyle = Color.BLACK;
+            // 右方向の共有辺（各セルと右隣）を一度だけ描画
+            for (var i = 0; i < rows; i++) {
+                for (var j = 0; j < cols; j++) {
+                    if (!shape[i][j]) continue;
+                    var cx = startX + j * cell;
+                    var cy = startY + i * cell;
+                    // right neighbor
+                    if (j + 1 < cols && shape[i][j + 1]) {
+                        ctx.beginPath();
+                        ctx.moveTo(cx + cell, cy);
+                        ctx.lineTo(cx + cell, cy + cell);
+                        ctx.stroke();
+                    }
+                    // down neighbor
+                    if (i + 1 < rows && shape[i + 1][j]) {
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy + cell);
+                        ctx.lineTo(cx + cell, cy + cell);
+                        ctx.stroke();
+                    }
+                }
+            }
+            // restore solid line style
+            ctx.setLineDash([]);
+        }
+
+        ctx.lineWidth = 1.2;
     }
 
     draw_polyomino(ctx, num, x, y, ccolor) {

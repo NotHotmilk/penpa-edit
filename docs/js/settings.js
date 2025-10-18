@@ -89,7 +89,7 @@ const UserSettings = {
     },
 
     // Toggle language
-    _language: 'JP',
+    _language: 'EN',
     set app_language(newValue) {
         this._language = newValue;
 

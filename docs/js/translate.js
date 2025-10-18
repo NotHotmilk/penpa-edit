@@ -214,12 +214,15 @@ function trans() {
         "ms_kakuro": ["カックロ", "Kakuro"],
         "ms_compass": ["コンパス", "Compass"],
         "ms_sudokuetc": ["数独特殊記号", "Sudoku variants"],
+        "ms_tetrominoes": ["テトロミノ", "Tetrominoes"],
+        "ms_tetrominoes_B": ["黒", "Black"],
+        "ms_tetrominoes_G": ["灰", "Gray"],
+        "ms_tetrominoes_G+": ["灰（細）", "Gray (Thin)"],
         "ms_polyomino": ["ポリオミノ", "Polyominoes"],
         "ms5": ["固有2", "Special2"],
         "ms_angleloop": ["鋭直鈍ループ", "Angle loop"],
         "ms_firefly": ["ホタルビーム", "Fireflies"],
         "ms_pencils": ["ペンシルズ", "Pencils"],
-        "ms_tetrominoes": ["テトロミノ", "Tetrominoes"],
         "ms_arc": ["円弧", "Arc"],
         "sub_specialthermo_lb": ["サーモ", "Thermo"],
         "sub_specialnobulbthermo_lb": ["サーモ（球なし）", "No Bulb Thermo"],
@@ -434,7 +437,7 @@ function trans() {
 const PenpaText = {
     get(key, variable) {
         const entry = this.dictionary[key] || {};
-        let returnText = entry[UserSettings.app_language] || entry.JP || '';
+        let returnText = entry[UserSettings.app_language] || entry.EN || '';
 
         if (!variable) { return returnText; }
 
