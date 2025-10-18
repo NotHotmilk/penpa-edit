@@ -63,7 +63,7 @@ function trans() {
 
     var button_text = {
         "newboard": ["新規 / 更新", "New Grid / Update"],
-        "rotation": ["変身", "Transform"],
+        "rotation": ["変形", "Transform"],
         "newsize": ["サイズ変更", "Resize"],
         "saveimage": ["画像保存", "Screenshot"],
         "savetext": ["出力", "Share"],

@@ -3,8 +3,12 @@
 
 <head>
     <!-- HTML Meta Tags -->
-    <title>Penpa+</title>
-    <meta name="description" content="Web application to create and solve Sudokus and Puzzles.">
+    <title>Penpa-Font+</title>
+    <meta name="description" content="Web application to create and solve Sudokus and Puzzles. Forked from swaroopg92/penpa-edit.">
+    <!-- Google Fonts の Noto Sans JP を読み込む -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://swaroopg92.github.io/penpa-edit/">
     <meta property="og:type" content="website">
@@ -997,9 +1001,9 @@
             <h3 class="modal-header" id="saveimagetitle">Save screenshot</h3>
             <div id="modal-image-body">
                 <h4><label class="label_imagespace" id="nb_margin_lb">White border:</label></h4>
-                <input type="radio" name="nb_margin" value="1" id="nb_margin1" checked="checked">
+                <input type="radio" name="nb_margin" value="1" id="nb_margin1">
                 <label for="nb_margin1" class="label" id="nb_margin1_lb">Yes</label>
-                <input type="radio" name="nb_margin" value="2" id="nb_margin2">
+                <input type="radio" name="nb_margin" value="2" id="nb_margin2" checked="checked">
                 <label for="nb_margin2" class="label" id="nb_margin2_lb">No</label>
                 <br>
                 <h4><label class="label_imagespace" id="nb_quality_lb">Image quality:</label></h4>
@@ -1009,11 +1013,11 @@
                 <label for="nb_quality2" class="label" id="nb_quality2_lb">Low</label>
                 <br>
                 <h4><label class="label_imagespace" id="nb_type_lb">File Type:</label></h4>
-                <input type="radio" name="nb_type" value="1" id="nb_type1" checked="checked">
+                <input type="radio" name="nb_type" value="1" id="nb_type1">
                 <label for="nb_type1" class="label" id="nb_type1_lb">png</label>
                 <input type="radio" name="nb_type" value="2" id="nb_type2">
                 <label for="nb_type2" class="label" id="nb_type2_lb">jpeg</label>
-                <input type="radio" name="nb_type" value="3" id="nb_type3">
+                <input type="radio" name="nb_type" value="3" id="nb_type3" checked="checked">
                 <label for="nb_type3" class="label" id="nb_type3_lb">svg</label>
                 <br>
                 <h4><label class="label_imagespace" id="nb_title_lb">Title &amp; Author:</label></h4>
@@ -1503,8 +1507,8 @@
                             </td>
                             <td>
                                 <select name="language" id="language_opt">
-                                    <option value="EN" selected="selected">English</option>
-                                    <option value="JP">日本語</option>
+                                    <option value="EN">English</option>
+                                    <option value="JP" selected="selected">日本語</option>
                                 </select>
                             </td>
                         </tr>

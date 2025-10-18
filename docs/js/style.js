@@ -111,27 +111,27 @@ function set_line_style(ctx, type, ccolor = "none") {
             ctx.lineWidth = 0.8;
             break;
         case 2:
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.BLACK;
             ctx.lineWidth = 3;
             break;
         case 21:
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.BLACK;
             ctx.lineWidth = 5;
             break;
         case 3:
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.GREEN;
             ctx.lineWidth = 3;
             break;
         case 4:
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.BLACK;
             ctx.lineWidth = 2;
             break;
         case 5:
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.GREY;
             ctx.lineWidth = 3;
             break;
@@ -141,7 +141,7 @@ function set_line_style(ctx, type, ccolor = "none") {
             break;
         case 7: // cage
         case 107:
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.GREY_DARK;
             ctx.lineWidth = 1;
             break;
@@ -158,7 +158,7 @@ function set_line_style(ctx, type, ccolor = "none") {
             var w = pu.size * 0.1;
             ctx.setLineDash([b, w]);
             ctx.lineDashOffset = b * 0.5;
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.BLACK;
             ctx.lineWidth = 1;
             break;
@@ -167,7 +167,7 @@ function set_line_style(ctx, type, ccolor = "none") {
             var w = pu.size * 0.1;
             ctx.setLineDash([b, w]);
             ctx.lineDashOffset = b * 0.5;
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             if (ccolor !== "none") {
                 ctx.strokeStyle = ccolor;
             } else {
@@ -212,7 +212,7 @@ function set_line_style(ctx, type, ccolor = "none") {
             var w = pu.size * 0.1;
             ctx.setLineDash([b, w]);
             ctx.lineDashOffset = b * 0.5;
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             if (ccolor !== "none") {
                 ctx.strokeStyle = ccolor;
             } else {
@@ -225,7 +225,7 @@ function set_line_style(ctx, type, ccolor = "none") {
             var w = pu.size * 0.1;
             ctx.setLineDash([b, w]);
             ctx.lineDashOffset = b * 0.5;
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             if (ccolor !== "none") {
                 ctx.strokeStyle = ccolor;
             } else {
@@ -235,7 +235,7 @@ function set_line_style(ctx, type, ccolor = "none") {
             break;
         case 16: // cage
         case 116:
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             if (ccolor !== "none") {
                 ctx.strokeStyle = ccolor;
             } else {
@@ -256,7 +256,7 @@ function set_line_style(ctx, type, ccolor = "none") {
             ctx.lineWidth = 1;
             break;
         case 30: //double line
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.GREEN;
             ctx.lineWidth = 3;
             break;
@@ -265,7 +265,7 @@ function set_line_style(ctx, type, ccolor = "none") {
             ctx.lineWidth = 2;
             break;
         case 80: //grid-like line
-            ctx.lineCap = "round";
+            ctx.lineCap = "square";
             ctx.strokeStyle = Color.BLACK;
             ctx.lineWidth = 1;
             break;
@@ -292,8 +292,8 @@ function set_font_style(ctx, size, type, ccolor = "none") {
     ctx.textAlign = "center";
     ctx.textBaseline = "alphabetic";
     ctx.setLineDash([]);
-    var fontfamily = "Helvetica,Arial";
-    ctx.font = size + "px " + fontfamily;
+    var fontfamily = "'Noto Sans JP', Helvetica, Arial";
+    ctx.font = size * 1.2 + "px " + fontfamily;
     switch (type) {
         case 0:
             ctx.fillStyle = Color.TRANSPARENTWHITE;
@@ -359,7 +359,7 @@ function set_font_style(ctx, size, type, ccolor = "none") {
 function set_circle_style(ctx, num, ccolor = "none") {
     ctx.setLineDash([]);
     ctx.lineDashOffset = 0;
-    ctx.lineCap = "butt";
+    ctx.lineCap = "square";
     ctx.strokeStyle = Color.BLACK;
     ctx.lineWidth = 1;
     switch (num) {

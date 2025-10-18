@@ -1731,7 +1731,7 @@ class Puzzle_square extends Puzzle {
             if (true) { //(this[pu].numberS[i][0].length <= 2 ){
                 if (this.point[i]) {
                     var [_, _, j] = this.point[i].index;
-                    set_font_style(this.ctx, 0.32 * this.size.toString(10), this[pu].numberS[i][1]);
+                    set_font_style(this.ctx, (0.32 * 1.2) * this.size.toString(10), this[pu].numberS[i][1]);
                     var n = parseInt(this[pu].numberS[i][0]);
                     var style = this.ctx.fillStyle;
                     if (UserSettings.check_pencil_marks && this.conflict_cell_values[j] &&
