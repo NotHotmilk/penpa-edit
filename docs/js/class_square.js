@@ -4063,6 +4063,9 @@ class Puzzle_square extends Puzzle {
         ctx.lineWidth = 1.2;
         ctx.lineCap = "square";
 
+        // セルサイズ（グリッド1セルあたり）
+        var cell = 0.22 * pu.size;
+
         var shape;
         switch (num) {
             case 1: // I (vertical)
@@ -4072,6 +4075,7 @@ class Puzzle_square extends Puzzle {
                     [1],
                     [1]
                 ];
+                cell = 0.2 * pu.size;
                 break;
             case 2: // O
                 shape = [
@@ -4081,8 +4085,8 @@ class Puzzle_square extends Puzzle {
                 break;
             case 3: // T
                 shape = [
-                    [1, 1, 1],
-                    [0, 1, 0]
+                    [0, 1, 0],
+                    [1, 1, 1]
                 ];
                 break;
             case 4: // L
@@ -4120,13 +4124,18 @@ class Puzzle_square extends Puzzle {
                 shape = [
                     [1, 1, 1, 1]
                 ];
+                cell = 0.2 * pu.size;
+                break;
+            case 0: // T (rotated)
+                shape = [
+                    [1, 1, 1],
+                    [0, 1, 0]
+                ]
                 break;
             default:
                 return;
         }
-
-        // セルサイズ（グリッド1セルあたり）
-        var cell = 0.2 * pu.size;
+        
         // バウンディングボックスサイズ
         var rows = shape.length;
         var cols = shape[0].length;
