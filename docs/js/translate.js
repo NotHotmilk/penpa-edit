@@ -433,7 +433,7 @@ function trans() {
 const PenpaText = {
     get(key, variable) {
         const entry = this.dictionary[key] || {};
-        let returnText = entry[UserSettings.app_language] || entry.EN || '';
+        let returnText = entry[UserSettings.app_language] || entry.JP || '';
 
         if (!variable) { return returnText; }
 
