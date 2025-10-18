@@ -214,7 +214,7 @@ function trans() {
         "ms_kakuro": ["カックロ", "Kakuro"],
         "ms_compass": ["コンパス", "Compass"],
         "ms_sudokuetc": ["数独特殊記号", "Sudoku variants"],
-        "ms_tetrominoes": ["テトロミノ", "Tetrominoes"],
+        "ms4_tetrominoes": ["テトロミノ", "Tetrominoes"],
         "ms_tetrominoes_B": ["黒", "Black"],
         "ms_tetrominoes_G": ["灰", "Gray"],
         "ms_tetrominoes_G+": ["灰（細）", "Gray (Thin)"],

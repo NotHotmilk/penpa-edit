@@ -66,11 +66,12 @@ const penpa_modes = {
             'arrow_Short', 'arrow_S', 'arrow_cross', 'arrow_eight', 'arrow_fourtip',
             'battleship_B', 'battleship_G', 'battleship_W', 'battleship_B+', 'battleship_G+', 'battleship_W+',
             'kakuro', 'tents', 'star', 'compass', 'sudokuetc', 'sudokumore', 'polyomino', 'polyhex',
+            'tetrominoes_B', 'tetrominoes_G', 'tetrominoes_G+',
             'angleloop', 'firefly', 'sun_moon', 'pencils', 'slovak', 'arc', 'darts', 'spans', 'neighbors'
         ],
         'ms1': ['circle', 'square', 'triup', 'tridown', 'triright', 'trileft', 'diamond', 'hexpoint', 'hexflat', 'ox', 'bars', 'degital'],
         'ms3': ['math', 'arrow_B', 'arrow_N', 'arrow_tri', 'arrow_fouredge', 'arrow_GP'],
-        'ms4': ['battleship'],
+        'ms4': ['battleship', 'tetrominoes'],
         // styles
         'st': ['surface1', 'surface8', 'surface3', 'surface4', 'surface2', 'surface5', 'surface6', 'surface7', 'surface9', 'surface10', 'surface11', 'surface12',
             'line3', 'line2', 'line5', 'line8', 'line9', 'line80', 'line12', 'line13', 'line40', 'line30',
@@ -81,7 +82,7 @@ const penpa_modes = {
             'cage10', 'cage7', 'cage15', 'cage16',
             'sudoku1', 'sudoku2', 'sudoku8', 'sudoku3', 'sudoku9', 'sudoku10'
         ],
-        'li': ['battleship', 'kakuro', 'tents', 'star', 'compass', 'sudokuetc', 'sudokumore', 'polyomino',
+        'li': ['battleship', 'kakuro', 'tents', 'star', 'compass', 'sudokuetc', 'sudokumore', 'polyomino', 'tetrominoes',
             'linex', 'lineox', 'linedir', 'edgex', 'edgexoi', 'yajilin', 'hashi',
             'circle', 'square', 'triup', 'tridown', 'triright', 'trileft', 'diamond', 'hexpoint', 'hexflat', 'ox', 'cross', 'line', 'frameline', 'bars', 'tri',
             'circle_L', 'circle_M', 'circle_S', 'circle_SS', 'square_LL', 'square_L', 'square_M', 'square_S', 'square_SS',
