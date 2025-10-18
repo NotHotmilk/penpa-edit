@@ -219,6 +219,7 @@ function trans() {
         "ms_angleloop": ["鋭直鈍ループ", "Angle loop"],
         "ms_firefly": ["ホタルビーム", "Fireflies"],
         "ms_pencils": ["ペンシルズ", "Pencils"],
+        "ms_tetrominoes": ["テトロミノ", "Tetrominoes"],
         "ms_arc": ["円弧", "Arc"],
         "sub_specialthermo_lb": ["サーモ", "Thermo"],
         "sub_specialnobulbthermo_lb": ["サーモ（球なし）", "No Bulb Thermo"],

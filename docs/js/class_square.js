@@ -446,7 +446,7 @@ class Puzzle_square extends Puzzle {
                     this.selection.push(this.cursol);
                 }
             } else if (edit_mode === "sudoku" || edit_mode === "multicolor" ||
-                  (edit_mode === "number" && this.number_multi_enabled())) {
+                (edit_mode === "number" && this.number_multi_enabled())) {
                 if (this.selection.length >= 1) {
                     var current_cursor = this.cursol;
                     switch (c) {
@@ -1640,7 +1640,7 @@ class Puzzle_square extends Puzzle {
                             set_font_style(this.ctx, fontSize, this[pu].number[i][1]);
                             this.ctx.text(this[pu].number[i][0], p_x, p_y + dy * factor * this.size, maxWidth);
                         }
-                        // Slow path: have to draw the digits one by one so we can change
+                            // Slow path: have to draw the digits one by one so we can change
                         // colors on them individually
                         else {
                             // Calculate text width to see if the font needs to be shrunk
@@ -2058,7 +2058,7 @@ class Puzzle_square extends Puzzle {
                 ctx.lineWidth = 1;
                 this.draw_bars(ctx, num, x, y);
                 break;
-                //number
+            //number
             case "inequality":
                 set_circle_style(ctx, 10, ccolor);
                 this.draw_inequality(ctx, num, x, y);
@@ -2099,7 +2099,7 @@ class Puzzle_square extends Puzzle {
                 this.draw_pills(ctx, num, x, y, ccolor);
                 break;
 
-                /* arrow */
+            /* arrow */
             case "arrow_B_B":
                 set_circle_style(ctx, 2, ccolor);
                 this.draw_arrowB(ctx, num, x, y);
@@ -2182,7 +2182,7 @@ class Puzzle_square extends Puzzle {
                 this.draw_arrowfouredge(ctx, num, x, y);
                 break;
 
-                /* special */
+            /* special */
             case "kakuro":
                 this.draw_kakuro(ctx, num, x, y, ccolor);
                 break;
@@ -2269,6 +2269,9 @@ class Puzzle_square extends Puzzle {
                 break;
             case "neighbors":
                 this.draw_neighbors(ctx, num, x, y, ccolor);
+                break;
+            case "tetrominoes":
+                this.draw_tetromino(ctx, num, x, y, ccolor);
                 break;
         }
     }
@@ -2725,7 +2728,7 @@ class Puzzle_square extends Puzzle {
                 ctx.fill();
                 ctx.stroke();
                 break;
-                //for square
+            //for square
             case 5:
             case 6:
             case 7:
@@ -4044,6 +4047,164 @@ class Puzzle_square extends Puzzle {
                 this.draw_polygon(ctx, x, y, r / Math.sqrt(2), 4, 45);
                 break;
         }
+    }
+
+    draw_tetromino(ctx, num, x, y, ccolor) {
+        ctx.setLineDash([]);
+        ctx.fillStyle = ccolor || Color.BLACK;
+        ctx.strokeStyle = Color.BLACK;
+        ctx.lineWidth = 1.2;
+        ctx.lineCap = "square";
+
+        var shape;
+        switch (num) {
+            case 1: // I (vertical)
+                shape = [
+                    [1],
+                    [1],
+                    [1],
+                    [1]
+                ];
+                break;
+            case 2: // O
+                shape = [
+                    [1, 1],
+                    [1, 1]
+                ];
+                break;
+            case 3: // T
+                shape = [
+                    [1, 1, 1],
+                    [0, 1, 0]
+                ];
+                break;
+            case 4: // L
+                shape = [
+                    [1, 0],
+                    [1, 0],
+                    [1, 1]
+                ];
+                break;
+            case 5: // J
+                shape = [
+                    [0, 1],
+                    [0, 1],
+                    [1, 1]
+                ];
+                break;
+            case 6: // S
+                shape = [
+                    [0, 1, 1],
+                    [1, 1, 0]
+                ];
+                break;
+            case 7: // Z
+                shape = [
+                    [1, 1, 0],
+                    [0, 1, 1]
+                ];
+                break;
+            case 9: // I (horizontal)
+                shape = [
+                    [1, 1, 1, 1]
+                ];
+                break;
+            default:
+                return;
+        }
+
+        // セルサイズ（グリッド1セルあたり）
+        var cell = 0.22 * pu.size;
+        // バウンディングボックスサイズ
+        var rows = shape.length;
+        var cols = shape[0].length;
+        // 中央寄せ開始位置
+        var startX = x - (cols * cell) / 2;
+        var startY = y - (rows * cell) / 2;
+        var pad = 0.018 * pu.size; // 内側パディング（不要なら0）
+
+        // 1) 内側の塗りつぶしのみ描画（枠線無し）
+        for (var i = 0; i < rows; i++) {
+            for (var j = 0; j < cols; j++) {
+                if (shape[i][j]) {
+                    var cx = startX + j * cell;
+                    var cy = startY + i * cell;
+                    ctx.beginPath();
+                    ctx.rect(cx + pad, cy + pad, cell - 2 * pad, cell - 2 * pad);
+                    ctx.fill();
+                }
+            }
+        }
+
+        // // 2) 外周の実線を描画（隣接が無い辺のみ）
+        // ctx.setLineDash([]);
+        // ctx.strokeStyle = Color.BLACK;
+        // for (var i = 0; i < rows; i++) {
+        //     for (var j = 0; j < cols; j++) {
+        //         if (!shape[i][j]) continue;
+        //         var cx = startX + j * cell;
+        //         var cy = startY + i * cell;
+        //         // top
+        //         if (i === 0 || !shape[i - 1][j]) {
+        //             ctx.beginPath();
+        //             ctx.moveTo(cx, cy);
+        //             ctx.lineTo(cx + cell, cy);
+        //             ctx.stroke();
+        //         }
+        //         // bottom
+        //         if (i === rows - 1 || !shape[i + 1][j]) {
+        //             ctx.beginPath();
+        //             ctx.moveTo(cx, cy + cell);
+        //             ctx.lineTo(cx + cell, cy + cell);
+        //             ctx.stroke();
+        //         }
+        //         // left
+        //         if (j === 0 || !shape[i][j - 1]) {
+        //             ctx.beginPath();
+        //             ctx.moveTo(cx, cy);
+        //             ctx.lineTo(cx, cy + cell);
+        //             ctx.stroke();
+        //         }
+        //         // right
+        //         if (j === cols - 1 || !shape[i][j + 1]) {
+        //             ctx.beginPath();
+        //             ctx.moveTo(cx + cell, cy);
+        //             ctx.lineTo(cx + cell, cy + cell);
+        //             ctx.stroke();
+        //         }
+        //     }
+        // }
+        //
+        // // 3) 内側の点線を描画（隣接している共有辺のみ、一回だけ描く）
+        // var dashLen = Math.max(1, 0.02 * pu.size);
+        // ctx.lineWidth = 1.2;
+        // ctx.strokeStyle = Color.BLACK;
+        // // 右方向の共有辺（各セルと右隣）を一度だけ描画
+        // for (var i = 0; i < rows; i++) {
+        //     for (var j = 0; j < cols; j++) {
+        //         if (!shape[i][j]) continue;
+        //         var cx = startX + j * cell;
+        //         var cy = startY + i * cell;
+        //         // right neighbor
+        //         if (j + 1 < cols && shape[i][j + 1]) {
+        //             ctx.beginPath();
+        //             ctx.moveTo(cx + cell, cy);
+        //             ctx.lineTo(cx + cell, cy + cell);
+        //             ctx.stroke();
+        //         }
+        //         // down neighbor
+        //         if (i + 1 < rows && shape[i + 1][j]) {
+        //             ctx.beginPath();
+        //             ctx.moveTo(cx, cy + cell);
+        //             ctx.lineTo(cx + cell, cy + cell);
+        //             ctx.stroke();
+        //         }
+        //     }
+        // }
+        //
+        // // restore solid line style
+        // ctx.setLineDash([]);
+        // ctx.lineWidth = 1.2;
     }
 
     draw_polyomino(ctx, num, x, y, ccolor) {
