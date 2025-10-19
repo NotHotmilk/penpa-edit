@@ -1560,18 +1560,26 @@ function savetext_withreplay() {
 }
 
 async function request_shortlink(url) {
-    // The # content cannot be sent to server, So if anyone wants to use automatic shorten, use ?
-    url = url.replace("#", "?");
+    // サーバーレス関数のエンドポイントを呼び出す
+    const proxyUrl = 'https://penpa-edit.vercel.app/api/create-tinyurl';
+
     try {
-        return $.get('https://tinyurl.com/api-create.php?url=' + url, function(link, status) {
-            if (status === "success") {
-                return link;
-            }
-            console.log('Error while creating tinyurl');
-            return null;
+        const response = await fetch(proxyUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url: url }),
         });
+
+        if (!response.ok) {
+            throw new Error('Proxy request failed');
+        }
+
+        const data = await response.json();
+        return data.data.tiny_url; // サーバーレス関数からのレスポンスを返す
     } catch (error) {
-        console.log('Error while creating tinyurl');
+        console.error('Error while creating tinyurl via proxy:', error);
         return null;
     }
 }
